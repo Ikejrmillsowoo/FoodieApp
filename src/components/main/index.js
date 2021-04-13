@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GetData from "../FetchResults";
+import NewData from "../FetchResults";
 import SearchItems from "../searchItems";
 
 class Main extends Component {
@@ -7,26 +7,21 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      term: "",
-      location: "",
+      isLoading: true,
+      term: "food",
+      location: "19702",
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  handleChange(e) {
-    const name = e.target;
-    const value = name.value;
+  onSubmit(e, term, location) {
     this.setState({
-      [e.target.name]: value,
+      isLoading: false,
+      term: term,
+      location: location,
     });
 
-    console.log(value);
-  }
-
-  formSubmit(e) {
-    alert(`submitted ${this.state.term} and ${this.state.location}`);
     e.preventDefault();
   }
 
@@ -40,11 +35,11 @@ class Main extends Component {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <SearchItems onChange={this.handleChange} onSubmit={this.formSubmit} />
-        <GetData
+        <SearchItems onChange={this.handleChange} onSubmit={this.onSubmit} />
+        <NewData
           term={this.state.term}
           location={this.state.location}
-          onSubmit={this.formSubmit}
+          isLoading={this.state.isLoading}
         />
       </div>
     );

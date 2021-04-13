@@ -1,64 +1,36 @@
-import React, { Component } from "react";
-import Submit from "./querySubmit";
+import React, { useEffect, useState } from "react";
 import Results from "./results";
 import { apiKey } from "./sourceData";
 
-const term = "food";
-const location = "19702";
+export default function NewData({ term, location, ...props }) {
+  const cors = "https://cors-anywhere.herokuapp.com/";
+  const YelpURL = "https://api.yelp.com/v3/businesses/search";
+  const [data, setData] = useState({ isLoading: props.isLoading, data: [] });
 
-class GetData extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      data: "",
-    };
-  }
+  useEffect(() => {
+    async function loadData() {
+      const response = await fetch(
+        `${cors}${YelpURL}?term=${term}&location=${location}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
+      );
+      const dataResponse = await response.json();
+      console.log(dataResponse);
+      setData({
+        isLoading: false,
+        data: dataResponse.businesses,
+      });
+    }
+    loadData();
+  }, [term, location]);
 
-  // {
-  //       id: "",
-  //       name: "",
-  //       image: "",
-  //       is_closed: "",
-  //       url: "",
-  //       review_count: "",
-  //       phone: "",
-  //     }
-  // update() {
-  //   this.setState({
-  //     term: this.props.term,
-  //     location: this.props.location,
-  //   });
-  // }
-
-  async componentDidMount() {
-    console.log(this.props.term, this.props.location);
-    const cors = "https://cors-anywhere.herokuapp.com/";
-    const YelpURL = "https://api.yelp.com/v3/businesses/search";
-    const response = await fetch(
-      `${cors}${YelpURL}?term=${term}&location=${location}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      }
-    );
-    const data = await response.json();
-
-    this.setState({
-      isLoading: false,
-      data: data.businesses,
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <Results data={this.state.data} isLoading={this.state.isLoading} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Results data={data.data} isLoading={data.isLoading} />
+    </div>
+  );
 }
-
-export default GetData;
