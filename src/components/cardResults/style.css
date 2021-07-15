@@ -1,17 +1,16 @@
 .card_item {
     background-color: black;
     color: white;
-    font-size: 1em;
+    /* font-size: 1em; */
     border-radius: 10px;
     height: 30em;
-
 }
 
 .card_image {
-    width: auto;
-    height: 50%;
+    width: 0 auto;
+    height: 15em;
     border: black solid 3px;
-    border-radius: 7px;
+    border-radius: 10px;
 }
 
 .card_image:hover {

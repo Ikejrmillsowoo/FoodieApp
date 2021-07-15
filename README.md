@@ -1,3 +1,14 @@
+#Notes to run FoodiesApp
+
+1. launch app
+2. Open developer tools > network
+3. click the search button and look into network for failed attempt log (will be highlighted in red)
+4. Click on the link to access another page.
+5. On this page click white bar that "grants temporary access"
+6. refresh main page to use app.
+
+Also note that search will only return businesses with rating and only the top rated 20.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

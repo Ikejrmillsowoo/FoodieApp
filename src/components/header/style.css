@@ -3,9 +3,9 @@
     flex-direction: row;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background-color: #EEC49D;
-    padding: 0 10px;
+    padding: 10px;
 }
 
 .header_image {
@@ -13,13 +13,15 @@
     background-color: #EEC49D;
 }
 img {
-    width: 200px;
+    width: 250px;
     background-color: #EEC49D;   
 }
 
-.header_input {
-    display: flex;
-    justify-content: space-between;
-    /* width: 15%; */
+h5 {
+    margin: 20px;
+    padding-top: 30px;
+   
 }
+
+
 

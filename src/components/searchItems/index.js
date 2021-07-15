@@ -55,7 +55,7 @@ export default function SearchItems(props) {
               htmlFor="category"
               className="col-12 col-md-6 text-left"
             ></Label>
-            <Button color="primary" className="col-3" type="submit">
+            <Button color="primary" className="col-md-3" type="submit">
               Submit
             </Button>
           </FormGroup>

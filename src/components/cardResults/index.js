@@ -20,11 +20,13 @@ function RenderCard(props) {
           <CardTitle className="text-center">
             <h4>{business.name}</h4>
           </CardTitle>
-          <CardBody className="m-auto">
+          <CardBody className="mx-auto">
             <CardImg
-              fluid
+              variant="top"
               src={business.image_url}
-              className="card_image img-thumbnail"
+              alt={business.name}
+              cap
+              className="img-fluid img-thumbnail card_image"
             />
             <CardText>
               <p>
@@ -38,7 +40,7 @@ function RenderCard(props) {
           <Button
             width="50%"
             color="primary"
-            className="card_link m-1"
+            className="card_link m-1 "
             href={business.url}
           >
             More Info.
