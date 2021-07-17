@@ -8,6 +8,13 @@ import App from "../src/App";
 const PORT = 8080;
 const app = express();
 
+app.use(express.static("./build"));
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.get("/*", (req, res) => {
   const context = {};
   const app = ReactDOMServer.renderToString(<App />);
