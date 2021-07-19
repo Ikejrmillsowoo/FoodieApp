@@ -1,4 +1,5 @@
 import React from "react";
+import Login from "../login";
 import "./style.css";
 
 export default function Header() {
@@ -13,6 +14,7 @@ export default function Header() {
           />
         </div>
         <h5>business search</h5>
+        <Login />
       </div>
     </>
   );

@@ -25,7 +25,6 @@ app.get("/*", (req, res) => {
       return res.status(500).send("Oops, better luck next time!");
     }
     data = data.replace('<div id="root"></div>', `<div id="root">${app}</div>`);
-
     return res.send(data);
   });
 });

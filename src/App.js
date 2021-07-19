@@ -19,7 +19,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <Router exact path="/" component={Main} /> */}
       <Main />
       <Footer />
 
