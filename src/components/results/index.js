@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RenderCard from "../cardResults";
 import { Loading } from "../isLoading";
 
 export default function Results(props) {
-  if (props.isLoading || !props.data) {
+  console.log(props);
+  const [move, setMove] = useState(props.startData);
+
+  useEffect(() => {
+    function newData() {
+      setMove(props.data);
+      console.log(move);
+    }
+    newData();
+  }, [move]);
+
+  console.log(move);
+  if (props.isLoading || !move) {
     return (
       <div>
         <Loading />
@@ -12,7 +24,7 @@ export default function Results(props) {
   } else {
     return (
       <div>
-        <RenderCard businesses={props.data} />
+        <RenderCard businesses={move} />
       </div>
     );
   }

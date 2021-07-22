@@ -29,12 +29,10 @@ function RenderCard(props) {
               className="img-fluid img-thumbnail card_image"
             />
             <CardText>
-              <p>
-                Phone: {business.phone} <br />
-                Address: {business.location.display_address} <br />
-                Rating: {business.rating} <br />
-                {business.is_closed === true ? "Closed" : "Open"}
-              </p>
+              Phone: {business.phone} <br />
+              Address: {business.location.display_address} <br />
+              Rating: {business.rating} <br />
+              {business.is_closed === true ? "Closed" : "Open"}
             </CardText>
           </CardBody>
           <Button

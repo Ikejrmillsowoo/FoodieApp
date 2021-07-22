@@ -1,28 +1,34 @@
 import React, { useEffect, useState } from "react";
-import Results from "./results";
+import Results from "./results/index";
 
-export default function NewData({ term, location, ...props }) {
+export default function NewData(props) {
   // const cors = "https://cors-anywhere.herokuapp.com/";
   // const YelpURL = "https://api.yelp.com/v3/businesses/search";
-  const [data, setData] = useState({ isLoading: props.isLoading, data: [] });
+  const [data, setData] = useState({
+    isLoading: true,
+    data: "",
+  });
 
   useEffect(() => {
     async function loadData() {
       const response = await fetch("http://localhost:8888");
       const dataResponse = await response.json();
-      // console.log(dataResponse);
       setData({
         isLoading: false,
         data: dataResponse,
       });
     }
-    console.log(data);
+    //console.log(data);
     loadData();
   }, []);
 
   return (
     <div>
-      <Results data={data.data} isLoading={data.isLoading} />
+      <Results
+        startData={data.data}
+        isLoading={data.isLoading}
+        data={props.data}
+      />
     </div>
   );
 }
