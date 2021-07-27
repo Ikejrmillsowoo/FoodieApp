@@ -2,33 +2,38 @@ import React, { useEffect, useState } from "react";
 import Results from "./results/index";
 
 export default function NewData(props) {
-  // const cors = "https://cors-anywhere.herokuapp.com/";
-  // const YelpURL = "https://api.yelp.com/v3/businesses/search";
   const [data, setData] = useState({
     isLoading: true,
-    data: "",
+    data: null,
   });
+
+  const newSearchTerms = {
+    term: props.term,
+    location: props.location,
+  };
 
   useEffect(() => {
     async function loadData() {
-      const response = await fetch("http://localhost:8888");
+      const response = await (!data.data
+        ? fetch("http://localhost:8888")
+        : fetch("http://localhost:8888", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newSearchTerms),
+          }));
       const dataResponse = await response.json();
+      console.log(dataResponse);
       setData({
         isLoading: false,
         data: dataResponse,
       });
     }
-    //console.log(data);
     loadData();
-  }, []);
+  }, [props.term, props.location]);
 
   return (
     <div>
-      <Results
-        startData={data.data}
-        isLoading={data.isLoading}
-        data={props.data}
-      />
+      <Results isLoading={data.isLoading} data={data.data} />
     </div>
   );
 }
