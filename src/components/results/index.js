@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import RenderCard from "../cardResults";
 import { Loading } from "../isLoading";
 

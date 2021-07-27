@@ -22,14 +22,13 @@ export default function NewData(props) {
             body: JSON.stringify(newSearchTerms),
           }));
       const dataResponse = await response.json();
-      console.log(dataResponse);
       setData({
         isLoading: false,
         data: dataResponse,
       });
     }
     loadData();
-  }, [props.term, props.location]);
+  }, [props.data, props.location]);
 
   return (
     <div>
