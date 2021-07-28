@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Results from "./results/index";
 
+const url = "https://enigmatic-brook-83236.herokuapp.com/";
 export default function NewData(props) {
   const [data, setData] = useState({
     isLoading: true,
@@ -15,8 +16,8 @@ export default function NewData(props) {
   useEffect(() => {
     async function loadData() {
       const response = await (!data.data
-        ? fetch("http://localhost:8888")
-        : fetch("http://localhost:8888", {
+        ? fetch(url)
+        : fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newSearchTerms),
