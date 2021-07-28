@@ -7,8 +7,8 @@ class Main extends Component {
     super(props);
     this.state = {
       isLoading: true,
-      term: "",
-      location: "",
+      term: "food",
+      location: "19146",
       data: "",
     };
 
@@ -17,13 +17,11 @@ class Main extends Component {
 
   onSubmit(e, term, location) {
     //get input information from form!
-
+    e.preventDefault();
     this.setState({
       term: term,
       location: location,
     });
-
-    e.preventDefault();
   }
 
   render() {

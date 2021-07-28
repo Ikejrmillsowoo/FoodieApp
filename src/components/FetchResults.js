@@ -28,7 +28,7 @@ export default function NewData(props) {
       });
     }
     loadData();
-  }, [props.data, props.location]);
+  }, [newSearchTerms.term, newSearchTerms.location]);
 
   return (
     <div>

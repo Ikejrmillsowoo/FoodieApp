@@ -12,6 +12,13 @@ export default function SearchItems(props) {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   }
 
+  function reset() {
+    setFormValues({
+      term: "",
+      location: "",
+    });
+  }
+
   return (
     <div>
       <div className="container container-result">
@@ -55,7 +62,12 @@ export default function SearchItems(props) {
               htmlFor="category"
               className="col-12 col-md-6 text-left"
             ></Label>
-            <Button color="primary" className="col-md-3" type="submit">
+            <Button
+              color="primary"
+              className="col-md-3"
+              type="submit"
+              onSubmit={reset}
+            >
               Submit
             </Button>
           </FormGroup>
