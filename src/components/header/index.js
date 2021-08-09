@@ -2,7 +2,7 @@ import React from "react";
 import Login from "../login";
 import "./style.css";
 
-export default function Header() {
+export default function Header(props) {
   return (
     <>
       <div className="header_container">
@@ -14,7 +14,7 @@ export default function Header() {
           />
         </div>
         <h5>business search</h5>
-        <Login />
+        <Login onSubmit={props.submitLogin} />
       </div>
     </>
   );
