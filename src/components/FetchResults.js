@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { baseUrl } from "./sourceData";
 import Results from "./results/index";
 
-const url = "https://enigmatic-brook-83236.herokuapp.com/";
+const url = baseUrl;
 export default function NewData(props) {
   const [data, setData] = useState({
     isLoading: true,

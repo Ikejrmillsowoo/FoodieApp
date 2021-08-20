@@ -14,7 +14,7 @@ export default function Header(props) {
           />
         </div>
         <h5>business search</h5>
-        <Login onSubmit={props.submitLogin} />
+        <Login submitLogin={props.submitLogin} />
       </div>
     </>
   );

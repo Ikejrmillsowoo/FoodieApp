@@ -18,6 +18,7 @@ const initialValues = {
 };
 
 function Login(props) {
+  console.log(props);
   // const [username, setUsername] = useState("");
   // const [password, setPassword] = useState("");
   const [values, setValues] = useState(initialValues);
@@ -35,7 +36,7 @@ function Login(props) {
     });
   };
 
-  console.log(values);
+  console.log(values.password);
 
   // const reset = () => {
   //   setValues(initialValues);
@@ -65,6 +66,7 @@ function Login(props) {
               value={values.username}
               onChange={handleInputChange}
               placeholder="Enter username here"
+              required
             />
           </FormGroup>
           <FormGroup>
@@ -76,6 +78,7 @@ function Login(props) {
               value={values.password}
               onChange={handleInputChange}
               placeholder="Enter password"
+              required
             />
           </FormGroup>
         </ModalBody>

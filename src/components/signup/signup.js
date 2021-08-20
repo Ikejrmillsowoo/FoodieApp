@@ -69,7 +69,7 @@ function Signup(props) {
           <Button color="primary" onClick={props.onClick}>
             Sign-up
           </Button>{" "}
-          <Button color="secondary" onClick={toggle} onClick={props.onClick}>
+          <Button color="secondary" onClick={toggle}>
             Cancel
           </Button>
         </ModalFooter>

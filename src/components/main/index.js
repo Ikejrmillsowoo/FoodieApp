@@ -1,14 +1,40 @@
 import React, { Component } from "react";
 import SearchItems from "../searchItems";
 import NewData from "../FetchResults";
+import { connect } from "react-redux";
+import {
+  fetchData,
+  fetchFavorites,
+  fetchUsers,
+} from "../../redux/ActionCreators";
+
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    users: state.users,
+    searchItems: state.searchItems.searchItem,
+  };
+};
+
+const mapDispatchToProps = {
+  fetchData: () => fetchData(),
+  fetchUsers: () => fetchUsers(),
+  fetchFavorites: () => fetchFavorites(),
+};
 
 class Main extends Component {
+  componentDidMount() {
+    this.props.fetchData();
+    this.props.fetchUsers();
+    this.props.fetchFavorites();
+  }
   constructor(props) {
     super(props);
+    console.log(props.searchItems.term);
     this.state = {
       isLoading: true,
-      term: "food",
-      location: "19146",
+      term: this.props.searchItems.term,
+      location: this.props.searchItems.location,
       data: "",
     };
 
@@ -41,4 +67,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
