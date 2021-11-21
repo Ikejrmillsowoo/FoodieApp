@@ -7,6 +7,10 @@ export const SearchItems = (
     searchItem: {
       term: "food",
       location: 19701,
+      firstname: "",
+      lastname: "",
+      username: "",
+      password: "",
     },
   },
   action

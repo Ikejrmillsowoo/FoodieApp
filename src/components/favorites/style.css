@@ -1,0 +1,11 @@
+.fave_button {
+    width: 80%;
+    position: absolute;
+    top: 50%;
+    left:10%;   
+    background-color: transparent;
+}
+
+.fave_button:hover {
+    background-color:gray
+}

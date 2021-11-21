@@ -14,7 +14,7 @@ export const Users = (
         ...state,
         isLoading: false,
         errMess: null,
-        searchItem: action.payload,
+        users: action.payload,
       };
     case ActionTypes.USER_LOADING:
       return { ...state, isLoading: true, errMess: null, users: [] };

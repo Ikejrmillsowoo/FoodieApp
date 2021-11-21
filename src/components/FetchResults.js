@@ -7,7 +7,17 @@ export default function NewData(props) {
   const [data, setData] = useState({
     isLoading: true,
     data: null,
+    signup: null,
   });
+
+  const signupData = {
+    firstname: props.firstname,
+    lastname: props.lastname,
+    username: props.username,
+    password: props.password,
+  };
+
+  console.log(signupData);
 
   const newSearchTerms = {
     term: props.term,
@@ -31,6 +41,46 @@ export default function NewData(props) {
     }
     loadData();
   }, [newSearchTerms.term, newSearchTerms.location]);
+
+  useEffect(() => {
+    async function postUser() {
+      const response = await fetch(`${url}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signupData),
+      });
+      const dataResponse = await response.json();
+      console.log(dataResponse);
+      dataResponse
+        ? alert(`Signed up as: ${dataResponse.username}`)
+        : alert(`Signup failed, please sign in again`);
+      // setData({
+      //   signup: dataResponse,
+      // });
+    }
+    postUser();
+  }, [
+    signupData.firstname,
+    signupData.lastname,
+    signupData.username,
+    signupData.password,
+  ]);
+
+  // useEffect(() => {
+  //   async function getFavorites() {
+  //     const response = await fetch(`${url}?favorites`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(signupData),
+  //     });
+  //     const dataResponse = await response.json();
+
+  //     setData({
+  //       signup: dataResponse,
+  //     });
+  //   }
+  //   getFavorites();
+  // }, []);
 
   return (
     <div>

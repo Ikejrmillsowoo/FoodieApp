@@ -2,6 +2,20 @@ import React, { useState } from "react";
 import { Label, Input, Button, Form, FormGroup } from "reactstrap";
 import "./style.css";
 
+// const mapStateToProps = (state) => {
+//   console.log(state.searchItems);
+//   return {
+//     // users: state.users,
+//     searchItems: state.searchItems.searchItem,
+//     // favorites: state.favorites.favorites,
+//   };
+// };
+
+// const mapDispatchToProps = {
+//   fetchData: () => fetchData(),
+//   // fetchUsers: () => fetchUsers(),
+// };
+
 export default function SearchItems(props) {
   const [formValues, setFormValues] = useState({
     term: "",

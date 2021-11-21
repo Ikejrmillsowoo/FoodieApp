@@ -9,45 +9,56 @@ import {
 } from "../../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  //console.log(state);
   return {
     users: state.users,
     searchItems: state.searchItems.searchItem,
+    favorites: state.favorites.favorites,
   };
 };
 
 const mapDispatchToProps = {
   fetchData: () => fetchData(),
-  fetchUsers: () => fetchUsers(),
-  fetchFavorites: () => fetchFavorites(),
+  // fetchUsers: () => fetchUsers(),
+  // fetchFavorites: () => fetchFavorites(),
 };
 
 class Main extends Component {
   componentDidMount() {
     this.props.fetchData();
-    this.props.fetchUsers();
-    this.props.fetchFavorites();
+    // this.props.fetchUsers();
+    // this.props.fetchFavorites();
   }
   constructor(props) {
     super(props);
-    console.log(props.searchItems.term);
+    console.log(props);
     this.state = {
-      isLoading: true,
+      //   isLoading: true,
       term: this.props.searchItems.term,
       location: this.props.searchItems.location,
-      data: "",
+      //   firstname: this.props.searchItems.firstname,
+      //   lastname: this.props.searchItems.lastname,
+      //   username: this.props.searchItems.username,
+      //   password: this.props.searchItems.password,
+      //   data: "",
     };
 
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(e, term, location) {
+  onSubmit(e, term, location, firstname, lastname, username, password) {
     //get input information from form!
     e.preventDefault();
     this.setState({
       term: term,
       location: location,
+      //   firstname: firstname,
+      //   lastname: lastname,
+      //   username: username,
+      //   password: password,
     });
+
+    console.log(this.state);
   }
 
   render() {
@@ -61,7 +72,14 @@ class Main extends Component {
         }}
       >
         <SearchItems onChange={this.handleChange} onSubmit={this.onSubmit} />
-        <NewData term={this.state.term} location={this.state.location} />
+        <NewData
+          term={this.state.term}
+          location={this.state.location}
+          firstname={this.props.userInfo.firstname}
+          lastname={this.props.userInfo.lastname}
+          username={this.props.userInfo.username}
+          password={this.props.userInfo.password}
+        />
       </div>
     );
   }

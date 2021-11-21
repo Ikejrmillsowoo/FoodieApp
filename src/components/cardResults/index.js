@@ -10,6 +10,7 @@ import {
   Col,
   Container,
 } from "reactstrap";
+import Favorite from "../favorites";
 import "./style.css";
 
 function RenderCard(props) {
@@ -25,7 +26,6 @@ function RenderCard(props) {
               variant="top"
               src={business.image_url}
               alt={business.name}
-              cap
               className="img-fluid img-thumbnail card_image"
             />
             <CardText>
@@ -40,9 +40,11 @@ function RenderCard(props) {
             color="primary"
             className="card_link m-1 "
             href={business.url}
+            target="_blank"
           >
             More Info.
           </Button>
+          <Favorite favBusiness={business} />
         </Card>
       </Col>
     );

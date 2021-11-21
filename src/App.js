@@ -17,16 +17,27 @@ function App() {
     password: "",
   });
 
-  function submitLogin(e, newPassword, newUsername) {
-    console.log(newPassword, newUsername);
+  function submitLogin(e, newFirstname, newlastname, newUsername, newPassword) {
+    //console.log(newPassword, newUsername, newFirstname, newlastname);
     e.preventDefault();
     setUserInfo({
-      firstname: "",
-      lastname: "",
-      username: newUsername,
-      password: newPassword,
+      firstname: newFirstname ? newFirstname : "",
+      lastname: newlastname ? newlastname : "",
+      username: newUsername ? newUsername : "",
+      password: newPassword ? newPassword : "",
     });
+
+    console.log(userInfo);
   }
+
+  // const resetFormFields = () => {
+  //   setUserInfo({
+  //     firstname: "",
+  //     lastname: "",
+  //     username: "",
+  //     password: "",
+  //   });
+  // };
 
   return (
     <Provider store={store}>
