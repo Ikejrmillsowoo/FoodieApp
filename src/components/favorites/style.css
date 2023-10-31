@@ -1,11 +1,43 @@
+.fave_div {
+    position: relative;
+    display: inline-block;
+    /* border-bottom: 1px dotted black; */
+    bottom: 30%;
+    left: 5%;
+  
+}
 .fave_button {
-    width: 80%;
     position: absolute;
-    top: 50%;
-    left:10%;   
-    background-color: transparent;
+    /* bottom: 10%; */
+    /* top: 80%; */
+    left: 30%;  
+    color: white;  
+    z-index: 1; 
+    
+
 }
 
+
+
+.fave_div .tooltip_text {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 5px;
+  font-size: .5em;
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 3;
+}
+
+
 .fave_button:hover {
-    background-color:gray
+    color:red;
+      
+}
+.fave_button:hover .tooltip_text {
+    visibility: visible;
 }

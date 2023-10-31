@@ -1,0 +1,15 @@
+.userImage {
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    border: solid 1px black;
+    background-color: black;
+    color: white;
+    margin: auto;
+    /* padding: 10px; */
+    /* font-size: 2em; */
+}
+
+.logoutButton {
+    /* padding: 0; */
+}

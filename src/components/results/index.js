@@ -1,9 +1,13 @@
 import React from "react";
 import RenderCard from "../cardResults";
 import { Loading } from "../isLoading";
+import { useSelector } from "react-redux";
 
-export default function Results(props) {
-  if (props.isLoading || !props.data) {
+export default function Results() {
+  const data = useSelector((state) => state.data.data);
+  const loading = useSelector((state) => state.data.loading);
+
+  if (loading || !data) {
     return (
       <div>
         <Loading />
@@ -12,7 +16,7 @@ export default function Results(props) {
   } else {
     return (
       <div>
-        <RenderCard businesses={props.data} />
+        <RenderCard />
       </div>
     );
   }

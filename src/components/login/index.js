@@ -11,22 +11,24 @@ import {
   ModalHeader,
   ModalFooter,
 } from "reactstrap";
-import { fetchData, fetchUsers } from "../../redux/ActionCreators";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { userLoggedIn } from "../../redux/loginSlice";
+import { baseUrl } from "../sourceData";
 
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    users: state.users,
-    searchItems: state.searchItems.searchItem,
-    favorites: state.favorites.favorites,
-  };
-};
+const url = baseUrl;
+// const mapStateToProps = (state) => {
+//   // console.log(state.searchItems);
+//   return {
+//     // users: state.users,
+//     searchItems: state.searchItems.searchItem,
+//     // favorites: state.favorites.favorites,
+//   };
+// };
 
-const mapDispatchToProps = {
-  fetchData: () => fetchData(),
-  fetchUsers: () => fetchUsers(),
-};
+// const mapDispatchToProps = {
+//   fetchData: () => fetchData(),
+//   // fetchUsers: () => fetchUsers(),
+// };
 
 const initialValues = {
   username: "",
@@ -34,17 +36,12 @@ const initialValues = {
 };
 
 function Login(props) {
-  console.log(props);
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
   const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState(
-    "Password must be at least 6 characters"
-  );
 
   const [modal, setModal] = useState(false);
 
-  const toggle = () => setModal(!modal);
+  const loginToggle = () => setModal(!modal);
 
   const handleInputChange = (e) => {
     e.preventDefault();
@@ -56,55 +53,51 @@ function Login(props) {
   };
 
   const reset = () => {
-    setValues({});
+    setValues(initialValues);
   };
 
+  //useEffect(() => {
+  // const userLogin = {
+  //   username: loginUsername,
+  //   password: loginPassword,
+  // };
+
+  const loginUser = () => async () => {
+    //dispatch(dataLoading());
+    const response = await fetch(`${url}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
+
+    const data = await response.json();
+    // console.log(data);
+    if (data.success) {
+      dispatch(userLoggedIn(data.username));
+    }
+    //dispatch(alert(`login successful`));
+  };
+  // dispatch(loginUser());
+  // }, [dispatch, loginUsername, loginPassword]);
+
   const onClick = (e) => {
-    toggle();
-    props.submitLogin(e, values.password, values.username);
+    loginToggle();
+    dispatch(loginUser());
+    // props.submitLogin(e, values.username, values.password);
+    // dispatch(userLogin(values));
+    // dispatch();
     reset();
   };
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    alert(values.username + values.password);
-    // const { username, password } = initialValues;
-
-    // if (password.length < 6) {
-    //   alert("passwords myst be at least 6");
-    // changed comparison to _less_ than
-    // setValues({
-    //   // update errors using setState -- never directly modify a component's state
-    //   errors: {
-    //     ...errors,
-    //     password: "Password must be at least 6 characters",
-    //   },
-  };
-
-  // const creds = { username, password };
-
-  // if (creds.username && creds.password) {
-  //   // objects are never falsey, so we need to check each field directly
-  //   console.log(creds);
-  // }
-  // };
-  // const reset = () => {
-  //   setValues(initialValues);
-  // };
-
   return (
     <div>
-      <Form
-        inline
-        // onSubmit={onClick}
-        // onSubmit={handleSubmit}
-      >
-        <Button color="primary" onClick={toggle}>
+      <Form inline>
+        <Button color="primary" onClick={() => alert("login coming soon")}>
           Log In
         </Button>
         {/* </Form> */}
-        <Modal isOpen={modal} toggle={toggle}>
-          <ModalHeader toggle={toggle}>
+        <Modal isOpen={modal} toggle={loginToggle}>
+          <ModalHeader toggle={loginToggle}>
             Log-In to your foodies account
           </ModalHeader>
 
@@ -143,13 +136,13 @@ function Login(props) {
             <Button color="primary" onClick={onClick}>
               Log In
             </Button>{" "}
-            <Button color="secondary" onClick={toggle}>
+            <Button color="secondary" onClick={loginToggle}>
               Cancel
             </Button>
           </ModalFooter>
           <ModalFooter>
             <label>Need to sign up?</label>
-            <Signup onClick={toggle} submitLogin={props.submitLogin} />
+            <Signup onClick={loginToggle} submitLogin={props.submitLogin} />
           </ModalFooter>
         </Modal>
       </Form>
@@ -157,4 +150,5 @@ function Login(props) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+//export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

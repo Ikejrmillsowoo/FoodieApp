@@ -1,41 +1,58 @@
 import React, { useState } from "react";
 import "./style.css";
 import Button from "reactstrap/lib/Button";
-import { connect } from "react-redux";
-import {
-  fetchData,
-  fetchFavorites,
-  fetchUsers,
-} from "../../redux/ActionCreators";
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { baseUrl } from "../sourceData";
 
-const mapStateToProps = (state) => {
-  //console.log(state);
-  return {
-    favorites: state.favorites.favorites,
+const url = baseUrl;
+
+function Favorite({ business }) {
+  const data = useSelector((state) => state.data.data);
+  const [favorites, setFavorites] = useState();
+  const [responseData, setResponseData] = useState();
+  const loggedIn = useSelector((state) => state.login.isLoggedIn);
+  const dispatch = useDispatch();
+
+  // console.log(favorites);
+  const postToFave = async () => {
+    //dispatch(dataLoading());
+    if (favorites) {
+      const response = await fetch(`${url}/favorites`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(favorites),
+      });
+
+      const data = await response.json();
+      setResponseData(data);
+    }
   };
-};
 
-const mapDispatchToProps = {
-  fetchFavorites: () => fetchFavorites(),
-};
+  // const addToFave = () => {
+  //   if (loggedIn === false) {
+  //     alert(`need to log in`);
+  //   }
+  //   setFavorites(business);
+  //   dispatch(postToFave());
+  //   //setFavorites(...favorites);
+  //   // console.log(e);
+  // };
 
-function Favorite({ favBusiness }) {
-  //console.log(favBusiness);
-  const [favorites, setFavorites] = useState([]);
-
-  const addToFave = () => {
-    setFavorites(...favorites, favBusiness);
-    console.log("fire");
-  };
   //console.log(favorites);
   return (
-    <div>
-      <Button className="fave_button" color="secondary" onClick={addToFave}>
+    <div className="fave_div">
+      <i
+        className="fa fa-heart fa-2x fave_button"
+        onClick={() => alert(`need to log in`)}
+      >
+        <span className="tooltip_text">Add To Favorites</span>
+      </i>
+
+      {/* <Button  className="fave_button" color="secondary" onClick={addToFave}>
         add to favorites
-      </Button>
+      </Button> */}
     </div>
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favorite);
+export default Favorite;

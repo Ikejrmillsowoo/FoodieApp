@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { fetchData, fetchUsers } from "../../redux/ActionCreators";
+import { useDispatch } from "react-redux";
 import {
   Button,
   Form,
@@ -12,23 +11,14 @@ import {
   ModalHeader,
   ModalFooter,
 } from "reactstrap";
+import { newUser } from "../../redux/signUpSlice";
+import { baseUrl } from "../sourceData";
 
-const mapStateToProps = (state) => {
-  console.log(state.searchItems);
-  return {
-    // users: state.users,
-    searchItems: state.searchItems.searchItem,
-    // favorites: state.favorites.favorites,
-  };
-};
-
-const mapDispatchToProps = {
-  fetchData: () => fetchData(),
-  // fetchUsers: () => fetchUsers(),
-};
+const url = baseUrl;
 
 function Signup(props) {
-  console.log(props);
+  // console.log(props);
+  const dispatch = useDispatch();
   const [formValues, setFormValues] = useState({
     firstname: "",
     lastname: "",
@@ -45,40 +35,43 @@ function Signup(props) {
     setFormValues({ ...formValues, [name]: value });
   }
 
-  const reset = () => {
-    setFormValues({});
+  // const reset = () => {
+  //   setFormValues({});
+  // };
+
+  const allToggle = () => {
+    toggle();
+    props.onClick();
+  };
+
+  const createUser = () => async () => {
+    //dispatch(dataLoading());
+    const response = await fetch(`${url}/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formValues),
+    });
+
+    const data = await response.json();
+    // console.log(data);
+    if (!data) {
+      dispatch(alert(!newUser.isSignedUp));
+    }
+    //dispatch(alert(`Sign up successful`));
   };
 
   const onClick = (e) => {
     toggle();
-    props.submitLogin(
-      e,
-      formValues.firstname,
-      formValues.lastname,
-      formValues.username,
-      formValues.password
-    );
-    reset();
+    dispatch(createUser());
   };
 
   return (
     <div>
-      <Form
-        inline
-        // onSubmit={(e) =>
-        //   props.submitLogin(
-        //     e,
-        //     formValues.firstname,
-        //     formValues.lastname,
-        //     formValues.username,
-        //     formValues.password
-        //   )
-        // }
-      >
+      <Form inline>
         <Button color="primary" onClick={toggle}>
           Sign up
         </Button>
-        {/* </Form> */}
+
         <Modal isOpen={signupModal} toggle={toggle}>
           <ModalHeader toggle={toggle}>Create account</ModalHeader>
           <ModalBody>
@@ -131,17 +124,14 @@ function Signup(props) {
             <Button color="primary" onClick={onClick}>
               Sign-up
             </Button>{" "}
-            <Button color="secondary" onClick={toggle}>
+            <Button color="secondary" onClick={allToggle}>
               Cancel
             </Button>
           </ModalFooter>
         </Modal>
       </Form>
-      {/* <Button onClick={onClick} color="primary">
-        Log In
-      </Button> */}
     </div>
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default Signup;

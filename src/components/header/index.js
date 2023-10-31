@@ -1,8 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Login from "../login";
+import Logout from "../logout";
 import "./style.css";
 
-export default function Header(props) {
+export default function Header({ getFavorites }) {
+  const loggedIn = useSelector((state) => state.login.isLoggedIn);
+
+  const headerDisplay =
+    loggedIn === false ? <Login /> : <Logout getFavorites={getFavorites} />;
+
   return (
     <>
       <div className="header_container">
@@ -14,7 +21,8 @@ export default function Header(props) {
           />
         </div>
         <h5>business search</h5>
-        <Login submitLogin={props.submitLogin} reset={props.reset} />
+        {/* <Login /> */}
+        {headerDisplay}
       </div>
     </>
   );
