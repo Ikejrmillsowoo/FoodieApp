@@ -21,11 +21,7 @@ function FetchResults(props) {
       dispatch(dataLoading());
       const response = await fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-          Authorization: `Bearer ${apiKey}`,
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(searchItems),
       });
 
