@@ -5,7 +5,7 @@ import { dataLoading, dataReceived } from "../redux/dataSlice";
 import Results from "./results";
 import { baseUrl } from "./sourceData";
 const url = baseUrl;
-const apiKey = process.env.API_KEY;
+
 function FetchResults(props) {
   const { term, location } = props;
   const dispatch = useDispatch();
@@ -15,13 +15,15 @@ function FetchResults(props) {
       term: term,
       location: location,
     };
-    //console.log(process.env.API_KEY);
 
     const fetchData = () => async () => {
       dispatch(dataLoading());
       const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
         body: JSON.stringify(searchItems),
       });
 
